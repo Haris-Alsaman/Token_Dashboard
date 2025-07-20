@@ -26,6 +26,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+    // Token management routes
+    Route::resource('tokens', App\Http\Controllers\TokenController::class);
+    Route::patch('/tokens/{token}/regenerate', [App\Http\Controllers\TokenController::class, 'regenerate'])->name('tokens.regenerate');
+    Route::patch('/tokens/{token}/toggle', [App\Http\Controllers\TokenController::class, 'toggle'])->name('tokens.toggle');
 });
 
 require __DIR__.'/auth.php';
